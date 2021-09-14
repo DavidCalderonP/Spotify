@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col">
+      <mat-card class="example-card mb-5" style="display: inline-block; margin-right: 3em;" *ngFor="let song of songs">
+        <mat-card-header>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <mat-card-title>
+            <!-- {{ song.name | titlecase}} -->
+            <span>{{ song.name | titlecase}}</span>
+          </mat-card-title>
+          <mat-card-subtitle *ngFor="let artist of song.artists">{{ artist.name }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image
+             style="max-width: 350px; max-height: 350px; min-width: 350px; min-height: 350px;"
+             src="{{ song.images[0].url || song.images[1].url || song.images[2].url }}"
+             alt="{{ song.name }}">
+        <mat-card-content>
+        </mat-card-content>
+        <mat-card-actions>
+          <button class="btn btn-outline-primary" mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
