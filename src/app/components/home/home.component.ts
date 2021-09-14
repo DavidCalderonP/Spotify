@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.data.getNewReleases().subscribe((res:any)=>{
       this.songs = res['albums']['items'];
-      console.log(res)
+      //console.log(res)
     })
   }
 

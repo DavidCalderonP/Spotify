@@ -3,20 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  API: 'https://accounts.spotify.com/api/token',
+  spotifyClientID: '7397c74885044f469e4ab09612660617',
+  spotifyClientSecret: 'ba5bc4ee41df49469f2ea016a107e404',
+  grant_type: 'client_credentials',
+  new_releases: 'https://api.spotify.com/v1/browse/new-releases',
+  artist: 'https://api.spotify.com/v1/artists/',
+  top_tracks: 'https://api.spotify.com/v1/artists/{id}/top-tracks'
 };
-
-export const clientID = '7397c74885044f469e4ab09612660617';
-
-export const clientSecret = 'ba5bc4ee41df49469f2ea016a107e404';
-
-export const apiCredentials = {
-  "access_token": "BQB4aYWwKQhlKZe3tBBDNRCB4BQn8IGxCtli8Xhg-HyFKKP86AFst0QdpHNjlnAjieEZi8Cdk7Zk7LvFCnk",
-  "token_type": "Bearer",
-  "expires_in": 3600
-}
-
-export const newReleases = 'https://api.spotify.com/v1/browse/new-releases';
 
 /*
  * For easier debugging in development mode, you can import the following file

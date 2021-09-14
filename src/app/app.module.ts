@@ -11,6 +11,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiService } from './components/shared/services/api.service';
 import { MatCardModule } from "@angular/material/card";
+import { ImgNotFoundPipe } from './components/shared/pipes/img-not-found.pipe';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -18,14 +20,16 @@ import { MatCardModule } from "@angular/material/card";
     HomeComponent,
     SearchComponent,
     ArtistaComponent,
-    NavbarComponent
+    NavbarComponent,
+    ImgNotFoundPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    MatListModule
   ],
   providers: [
     ApiService

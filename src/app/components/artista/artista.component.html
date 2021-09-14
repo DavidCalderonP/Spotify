@@ -1,1 +1,21 @@
-<p>artista works!</p>
+<div class="container mb-5" style="color: black">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <img src="{{ artista.images | imgNotFound }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h1 class="card-title">{{ artista.name }}</h1>
+          <p class="card-text">Géneros musicales</p>
+            <mat-selection-list #shoes [multiple]="false">
+              <mat-list-option  *ngFor="let genres of artista.genres" [value]="genres">
+                {{genres | titlecase }}
+              </mat-list-option>
+            </mat-selection-list>
+          <div>{{getFollowers()}}</div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
