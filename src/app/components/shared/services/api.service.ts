@@ -15,11 +15,10 @@ export class ApiService {
 
   getTopTracks(id: string){
     const headers = {
-      'Authorization': `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`,
-      'id': id
+      'Authorization': `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`
     }
 
-    return this.http.get(this.env.top_tracks, {headers})
+    return this.http.get(`${this.env.top_tracks.base}${id}${this.env.top_tracks.complment}`, {headers});
   }
 
   getOneArtist(id: string){
@@ -30,23 +29,32 @@ export class ApiService {
     return this.http.get(`${this.env.artist}${id}`, { headers })
   }
 
-  getNewReleases():Observable<any>{
+  getNewReleases(url?: string):Observable<any>{
 
     const headers = {
       'Authorization': `${localStorage.getItem('token_type')} ${localStorage.getItem('access_token')}`
     }
-    return this.http.get(this.env.new_releases, { headers })
+    return this.http.get(url || this.env.new_releases, { headers })
       .pipe(
         catchError((error)=>{
           console.log("Imprimiendo el error")
           if(error.status===401){
             console.log("El token ha expirado, generando uno nuevo")
-            this.getToken();
+            this.getToken().subscribe((respuesta: any)=>{
+              this.toLocalStorage(respuesta)
+            });
             this.getNewReleases();
             return;
           }
           return error;
         }))
+  }
+
+  toLocalStorage(respuesta:any){
+    for (const res in respuesta) {
+      localStorage.setItem(res, respuesta[res]);
+    }
+    window.location.reload();
   }
 
   getToken() {
@@ -59,13 +67,9 @@ export class ApiService {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     }
 
-     this.http.post(this.env.API, body.toString(), headers).pipe(
+     return this.http.post(this.env.API, body.toString(), headers).pipe(
       catchError(err => {
         return err;
-      })).subscribe((respuesta: any)=>{
-      for (const res in respuesta) {
-        localStorage.setItem(res, respuesta[res]);
-      }
-    });
+      }))
   }
 }

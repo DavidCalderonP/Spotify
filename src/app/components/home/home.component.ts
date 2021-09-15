@@ -10,13 +10,29 @@ import { ApiService } from '../shared/services/api.service';
 export class HomeComponent implements OnInit {
 
   songs : any[] = [];
+  pag: any;
   constructor(private data: ApiService) { }
 
   ngOnInit(): void {
-    this.data.getNewReleases().subscribe((res:any)=>{
+    this.getData()
+  }
+
+  getData(url?: string){
+    this.data.getNewReleases(url).subscribe((res:any)=>{
       this.songs = res['albums']['items'];
-      //console.log(res)
+      this.pag = res['albums'];
+      console.log("imprimiendo la info completa",res['albums'])
+      console.log("imprimiendo los items", res['albums']['items'])
+      console.log("imprimiendo los albums", res['albums'])
     })
   }
 
+  nextPage(){
+    console.log("click")
+    this.getData(this.pag.next)
+  }
+
+  previousPage(){
+    this.getData(this.pag['previous'])
+  }
 }

@@ -1,19 +1,19 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../shared/services/api.service";
 import {Artista} from "../../artista.model";
-
-
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-artista',
   templateUrl: './artista.component.html',
   styleUrls: ['./artista.component.css']
 })
-export class ArtistaComponent implements OnInit, AfterViewInit, OnDestroy
-{
+export class ArtistaComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  artista: Artista;
+  artista: any = {};
+   topTracks: any[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private data: ApiService, private cdr: ChangeDetectorRef) {
     console.log("constructor")
@@ -25,14 +25,19 @@ export class ArtistaComponent implements OnInit, AfterViewInit, OnDestroy
       this.data.getOneArtist(res.id).subscribe( (artista:any)=>{
         this.artista = artista;
         this.cdr.detectChanges()
-        //console.log(artista)
+        console.log(artista)
       })
-      this.data.getTopTracks(res.id).subscribe(res=>{
-        console.log(res);
+      this.data.getTopTracks(res.id).subscribe((res:any)=>{
+        this.topTracks = res['tracks'];
+        console.log("impirmiendo los tracks")
+        console.log(this.topTracks);
       });
     })
 
+  }
 
+  isLoaded():boolean{
+    return JSON.stringify({})!==JSON.stringify(this.artista)
   }
 
   getFollowers = () => {
@@ -46,11 +51,13 @@ export class ArtistaComponent implements OnInit, AfterViewInit, OnDestroy
 
   ngAfterViewInit(): void {
     console.log("onafter")
+    ;
   }
 
   ngOnDestroy(): void {
     console.log("ondestroy")
 
   }
+
 
 }

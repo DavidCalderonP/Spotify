@@ -14,7 +14,10 @@ export class NavbarComponent implements OnInit {
   }
 
   crearToken(){
-
+    this.api.getToken().subscribe(res=>{
+      console.log(res)
+      this.api.toLocalStorage(res);
+    })
   }
 
 }

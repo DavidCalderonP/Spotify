@@ -10,7 +10,10 @@ export const environment = {
   grant_type: 'client_credentials',
   new_releases: 'https://api.spotify.com/v1/browse/new-releases',
   artist: 'https://api.spotify.com/v1/artists/',
-  top_tracks: 'https://api.spotify.com/v1/artists/{id}/top-tracks'
+  top_tracks: {
+    base: 'https://api.spotify.com/v1/artists/',
+    complment: '/top-tracks?market=us'
+  }
 };
 
 /*

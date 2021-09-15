@@ -1,8 +1,15 @@
 <div class="container mb-5" style="color: black">
-  <div class="row">
+  <div class="row m-5">
     <div class="col">
       <div class="card">
-        <img src="{{ artista.images | imgNotFound }}" class="card-img-top" alt="...">
+        <div *ngIf="!isLoaded()" style="text-align: -webkit-center; margin-top: 5em;">
+          <mat-spinner></mat-spinner>
+        </div>
+        <!--<img *ngIf="!artista.images" src="https://dinahosting.com/blog/cont/uploads/2021/03/error-404.jpg" class="card-img-top" alt="...">-->
+        <div *ngIf="isLoaded()">
+          <img src="{{ artista.images | imgNotFound }}" class="card-img-top" alt="...">
+        </div>
+
         <div class="card-body">
           <h1 class="card-title">{{ artista.name }}</h1>
           <p class="card-text">Géneros musicales</p>
@@ -12,10 +19,65 @@
               </mat-list-option>
             </mat-selection-list>
           <div>{{getFollowers()}}</div>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Álbum</th>
+              <th>Canción</th>
+              <th>Vista Previa</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let current of topTracks">
+                <th>
+                  <img style="height: 100px; width: 100px;" src="{{ current.album.images | imgNotFound }}" alt="">
+                </th>
+                <th>{{ current.album.name }}</th>
+                <th>{{ current.name }}</th>
+                <th>
+                  <audio [src]="current.preview_url"></audio>
+                </th>
+              </tr>
+            </tbody>
+          </table>
       </div>
       </div>
     </div>
   </div>
 </div>
+<!--
+<table *ngIf="isLoaded()" mat-table [dataSource]="topTracks" matSort class="mat-elevation-z8">
 
 
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+    <td mat-cell *matCellDef="let element">
+      <img style="height: 50px; width: 50px;" src="{{ element.album.images | imgNotFound }}">
+    </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.album.name }} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+    <td mat-cell *matCellDef="let element">
+      <audio src="{{element.preview_url}} "></audio>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+-->

@@ -23,5 +23,8 @@
       </div>
     </div>
   </div>
-
+  <div style="text-align: center">
+    <button *ngIf="pag.previous!==null" (click)="previousPage()" class="btn btn-outline-primary"><i class="fas fa-arrow-left"></i></button>
+    <button *ngIf="pag.next!==null" (click)="nextPage()" class="btn btn-outline-primary"><i class="fas fa-arrow-right"></i></button>
+  </div>
 </div>

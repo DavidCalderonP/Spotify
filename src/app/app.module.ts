@@ -13,6 +13,9 @@ import { ApiService } from './components/shared/services/api.service';
 import { MatCardModule } from "@angular/material/card";
 import { ImgNotFoundPipe } from './components/shared/pipes/img-not-found.pipe';
 import {MatListModule} from "@angular/material/list";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -23,14 +26,17 @@ import {MatListModule} from "@angular/material/list";
     NavbarComponent,
     ImgNotFoundPipe
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatListModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        MatPaginatorModule
+    ],
   providers: [
     ApiService
   ],
